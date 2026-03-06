@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chain of Custody Form - Forensic COC System</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/coc-form.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <i class="fas fa-shield-halfling"></i>
+                <h2>Forensic COC</h2>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-item">
+                    <i class="fas fa-home"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="cases.html" class="nav-item">
+                    <i class="fas fa-folder"></i>
+                    <span>Cases</span>
+                </a>
+                <a href="evidence.html" class="nav-item">
+                    <i class="fas fa-microchip"></i>
+                    <span>Evidence</span>
+                </a>
+                <a href="coc-form.html" class="nav-item active">
+                    <i class="fas fa-file-signature"></i>
+                    <span>New COC</span>
+                </a>
+                <a href="profile.html" class="nav-item">
+                    <i class="fas fa-user"></i>
+                    <span>Profile</span>
+                </a>
+            </nav>
+            
+            <div class="sidebar-footer">
+                <div class="user-info">
+                    <div class="user-avatar" id="userAvatar">...</div>
+                    <div class="user-details">
+                        <span id="userName">Loading...</span>
+                        <small id="userRole">Digital Forensics</small>
+                    </div>
+                </div>
+                <button id="logoutBtn" class="btn-logout">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Logout</span>
+                </button>
+            </div>
+        </aside>
+        
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="content-header">
+                <div>
+                    <h1>Chain of Custody Form</h1>
+                    <p class="breadcrumb">
+                        <a href="dashboard.html">Dashboard</a> / 
+                        <a href="evidence.html">Evidence</a> / 
+                        <span>New COC</span>
+                    </p>
+                </div>
+                <div class="header-actions">
+                    <button class="btn-secondary" id="previewBtn">
+                        <i class="fas fa-eye"></i>
+                        Preview
+                    </button>
+                    <button class="btn-secondary" id="saveDraftBtn">
+                        <i class="fas fa-save"></i>
+                        Save Draft
+                    </button>
+                </div>
+            </header>
+            
+            <div class="coc-form-container">
+                <form id="cocForm" class="coc-form">
+                    <!-- Form Header -->
+                    <div class="form-header">
+                        <div class="agency-logo">
+                            <i class="fas fa-shield-halfling fa-3x"></i>
+                            <h2>Forensic Laboratory</h2>
+                            <p>Chain of Custody Document</p>
+                        </div>
+                        <div class="form-metadata">
+                            <div class="metadata-item">
+                                <label>COC Number:</label>
+                                <span class="coc-number" id="cocNumber">COC-2024-0001</span>
+                            </div>
+                            <div class="metadata-item">
+                                <label>Date:</label>
+                                <span id="currentDate"></span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Case Information Section -->
+                    <div class="form-section">
+                        <h3 class="section-title">
+                            <i class="fas fa-folder"></i>
+                            Case Information
+                        </h3>
+                        <div class="section-content">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>
+                                        <i class="fas fa-hashtag"></i>
+                                        Case Number <span class="required">*</span>
+                                    </label>
+                                    <select id="cocCaseNumber" required>
+                                        <option value="">Select Case</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>
+                                        <i class="fas fa-tag"></i>
+                                        Case Title
+                                    </label>
+                                    <input type="text" id="cocCaseTitle" readonly placeholder="Auto-filled">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>
+                                    <i class="fas fa-align-left"></i>
+                                    Case Description
+                                </label>
+                                <textarea id="caseDescription" rows="2" readonly placeholder="Case description will appear here"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>
+                                    <i class="fas fa-user-tie"></i>
+                                    Lead Investigator
+                                </label>
+                                <input type="text" id="investigatorName" readonly>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Evidence Information Section -->
+                    <div class="form-section">
+                        <h3 class="section-title">
+                            <i class="fas fa-microchip"></i>
+                            Evidence Information
+                        </h3>
+                        <div class="section-content">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>
+                                        <i class="fas fa-barcode"></i>
+                                        Evidence ID <span class="required">*</span>
+                                    </label>
+                                    <select id="cocEvidenceId" required>
+                                        <option value="">Select Evidence</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>
+                                        <i class="fas fa-tag"></i>
+                                        Evidence Type
+                                    </label>
+                                    <input type="text" id="evidenceType" readonly>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>
+                                    <i class="fas fa-align-left"></i>
+                                    Evidence Description
+                                </label>
+                                <textarea id="evidenceDescription" rows="2" readonly></textarea>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>
+                                        <i class="fas fa-microchip"></i>
+                                        Serial Number
+                                    </label>
+                                    <input type="text" id="evidenceSerial" readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label>
+                                        <i class="fas fa-industry"></i>
+                                        Model/Manufacturer
+                                    </label>
+                                    <input type="text" id="evidenceModel" readonly>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Transfer Details Section -->
+                    <div class="form-section">
+                        <h3 class="section-title">
+                            <i class="fas fa-exchange-alt"></i>
+                            Transfer Details
+                        </h3>
+                        <div class="section-content">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>
+                                        <i class="fas fa-calendar"></i>
+                                        Transfer Date/Time <span class="required">*</span>
+                                    </label>
+                                    <input type="datetime-local" id="transferDateTime" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>
+                                        <i class="fas fa-exchange-alt"></i>
+                                        Transfer Type
+                                    </label>
+                                    <select id="transferType">
+                                        <option value="transfer">Transfer</option>
+                                        <option value="analysis">To Analysis</option>
+                                        <option value="storage">To Storage</option>
+                                        <option value="return">Return</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>
+                                        <i class="fas fa-map-marker-alt"></i>
+                                        From Location <span class="required">*</span>
+                                    </label>
+                                    <input type="text" id="transferFrom" required placeholder="e.g., Evidence Room, Lab A">
+                                </div>
+                                <div class="form-group">
+                                    <label>
+                                        <i class="fas fa-map-marker-alt"></i>
+                                        To Location <span class="required">*</span>
+                                    </label>
+                                    <input type="text" id="transferTo" required placeholder="e.g., Analysis Lab, Storage">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>
+                                    <i class="fas fa-clipboard-list"></i>
+                                    Purpose of Transfer <span class="required">*</span>
+                                </label>
+                                <input type="text" id="transferPurpose" required placeholder="e.g., Forensic Analysis, Storage, Return to Owner">
+                            </div>
+                            <div class="form-group">
+                                <label>
+                                    <i class="fas fa-truck"></i>
+                                    Transport Method
+                                </label>
+                                <div class="transport-options">
+                                    <label class="radio-option">
+                                        <input type="radio" name="transportMethod" value="hand-delivered" checked>
+                                        Hand Delivered
+                                    </label>
+                                    <label class="radio-option">
+                                        <input type="radio" name="transportMethod" value="courier">
+                                        Courier Service
+                                    </label>
+                                    <label class="radio-option">
+                                        <input type="radio" name="transportMethod" value="secure-transport">
+                                        Secure Transport
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Condition & Packaging Section -->
+                    <div class="form-section">
+                        <h3 class="section-title">
+                            <i class="fas fa-box"></i>
+                            Condition & Packaging
+                        </h3>
+                        <div class="section-content">
+                            <div class="form-group">
+                                <label>
+                                    <i class="fas fa-check-circle"></i>
+                                    Evidence Condition
+                                </label>
+                                <div class="condition-options">
+                                    <label class="radio-option">
+                                        <input type="radio" name="condition" value="intact" checked>
+                                        Intact/Sealed
+                                    </label>
+                                    <label class="radio-option">
+                                        <input type="radio" name="condition" value="damaged">
+                                        Damaged
+                                    </label>
+                                    <label class="radio-option">
+                                        <input type="radio" name="condition" value="tampered">
+                                        Tampered
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>
+                                    <i class="fas fa-align-left"></i>
+                                    Condition Description
+                                </label>
+                                <textarea id="conditionDescription" rows="2" placeholder="Describe any damage or unusual condition..."></textarea>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>
+                                        <i class="fas fa-hashtag"></i>
+                                        Bag/Container Number
+                                    </label>
+                                    <input type="text" id="bagNumber" placeholder="e.g., BAG-001">
+                                </div>
+                                <div class="form-group">
+                                    <label>
+                                        <i class="fas fa-lock"></i>
+                                        Seal Condition
+                                    </label>
+                                    <select id="sealCondition">
+                                        <option value="intact">Intact</option>
+                                        <option value="broken">Broken</option>
+                                        <option value="missing">Missing</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>
+                                    <i class="fas fa-hashtag"></i>
+                                    Authorization Reference
+                                </label>
+                                <input type="text" id="authReference" placeholder="e.g., Court Order #, Case Authorization">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Transferor and Transferee Information (Signatures Removed) -->
+                    <div class="form-section">
+                        <h3 class="section-title">
+                            <i class="fas fa-users"></i>
+                            Transferor & Transferee Information
+                        </h3>
+                        <div class="section-content">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>
+                                        <i class="fas fa-user"></i>
+                                        Transferor Name <span class="required">*</span>
+                                    </label>
+                                    <input type="text" id="transferorName" placeholder="Full Name" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>
+                                        <i class="fas fa-briefcase"></i>
+                                        Transferor Title
+                                    </label>
+                                    <input type="text" id="transferorTitle" placeholder="Title/Position">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>
+                                        <i class="fas fa-user"></i>
+                                        Transferee Name <span class="required">*</span>
+                                    </label>
+                                    <input type="text" id="transfereeName" placeholder="Full Name" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>
+                                        <i class="fas fa-briefcase"></i>
+                                        Transferee Title
+                                    </label>
+                                    <input type="text" id="transfereeTitle" placeholder="Title/Position">
+                                </div>
+                            </div>
+                            
+                            <!-- Witness Information (Optional) -->
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>
+                                        <i class="fas fa-user"></i>
+                                        Witness Name (Optional)
+                                    </label>
+                                    <input type="text" id="witnessName" placeholder="Full Name">
+                                </div>
+                                <div class="form-group">
+                                    <label>
+                                        <i class="fas fa-briefcase"></i>
+                                        Witness Title
+                                    </label>
+                                    <input type="text" id="witnessTitle" placeholder="Title/Position">
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label>
+                                    <i class="fas fa-sticky-note"></i>
+                                    Additional Notes
+                                </label>
+                                <textarea id="additionalNotes" rows="3" placeholder="Any additional information or observations..."></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Form Actions -->
+                    <div class="form-actions">
+                        <button type="button" class="btn-secondary" id="cancelBtn">
+                            <i class="fas fa-times"></i>
+                            Cancel
+                        </button>
+                        <button type="button" class="btn-secondary" id="printFormBtn">
+                            <i class="fas fa-print"></i>
+                            Print
+                        </button>
+                        <button type="submit" class="btn-primary" id="submitCOCBtn">
+                            <i class="fas fa-save"></i>
+                            Create COC
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </main>
+    </div>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <span> A Digital Evidence Report Generation System | Group:A3 | <b>Designed and Developed by:</b> CS23006-Madhura Karangale & CS23007-Samiksha Thakre </span>
+    </footer>
+    
+    <!-- Preview Modal -->
+    <div id="previewModal" class="preview-modal">
+        <div class="preview-content">
+            <div class="preview-header">
+                <h2>CHAIN OF CUSTODY FORM</h2>
+                <p>Preview - Review before submitting</p>
+            </div>
+            <div id="previewContent"></div>
+            <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px;">
+                <button class="btn-secondary" onclick="closePreview()">Close</button>
+                <button class="btn-primary" onclick="printPreview()">
+                    <i class="fas fa-print"></i> Print
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <span> A Digital Evidence Report Generation System | Group:A3 | <b>Designed and Developed by:</b> CS23006-Madhura Karangale & CS23007-Samiksha Thakre </span>
+    </footer>
+    
+    <!-- Toast Notification -->
+    <div id="toast" class="toast"></div>
+    <script src="js/config.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script type="module" src="js/coc.js"></script>
+    
+</body>
+</html>

@@ -1,0 +1,332 @@
+/* Stats Grid  */
+.stats-grid {
+    margin-bottom: 30px;
+}
+
+/* Dashboard Grid Layout */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+/* Section Headers */
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.section-header h2 {
+    font-size: 18px;
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+.view-all {
+    color: var(--secondary-color);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: all 0.3s;
+}
+
+.view-all:hover {
+    color: #2980b9;
+    transform: translateX(3px);
+}
+
+.view-all i {
+    font-size: 12px;
+}
+
+/* Recent Cases Table */
+.recent-cases {
+    background: white;
+    border-radius: var(--border-radius);
+    padding: 20px;
+    box-shadow: var(--box-shadow);
+}
+
+.table-responsive {
+    overflow-x: auto;
+    margin-top: 15px;
+}
+
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.data-table th {
+    text-align: left;
+    padding: 12px 15px;
+    background: #f8f9fa;
+    font-weight: 600;
+    color: var(--primary-color);
+    border-bottom: 2px solid #dee2e6;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.data-table td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #dee2e6;
+    font-size: 14px;
+}
+
+.data-table tbody tr {
+    transition: background 0.3s;
+}
+
+.data-table tbody tr:hover {
+    background: #f8f9fa;
+    cursor: pointer;
+}
+
+/* Status Badges */
+.status-badge {
+    padding: 4px 8px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 500;
+    display: inline-block;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.status-badge.active {
+    background: rgba(39, 174, 96, 0.1);
+    color: var(--success-color);
+    border: 1px solid rgba(39, 174, 96, 0.2);
+}
+
+.status-badge.pending {
+    background: rgba(243, 156, 18, 0.1);
+    color: var(--warning-color);
+    border: 1px solid rgba(243, 156, 18, 0.2);
+}
+
+.status-badge.closed {
+    background: rgba(231, 76, 60, 0.1);
+    color: var(--danger-color);
+    border: 1px solid rgba(231, 76, 60, 0.2);
+}
+
+.status-badge.in-custody {
+    background: #e3f2fd;
+    color: #1976d2;
+    border: 1px solid rgba(25, 118, 210, 0.2);
+}
+
+.status-badge.analyzing {
+    background: #fff3e0;
+    color: #f57c00;
+    border: 1px solid rgba(245, 124, 0, 0.2);
+}
+
+.status-badge.completed {
+    background: #e8f5e9;
+    color: #388e3c;
+    border: 1px solid rgba(56, 142, 60, 0.2);
+}
+
+/* Activity Feed */
+.recent-activity {
+    background: white;
+    border-radius: var(--border-radius);
+    padding: 20px;
+    box-shadow: var(--box-shadow);
+}
+
+.activity-feed {
+    margin-top: 15px;
+}
+
+.activity-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    padding: 15px 0;
+    border-bottom: 1px solid #eee;
+    transition: all 0.3s;
+}
+
+.activity-item:last-child {
+    border-bottom: none;
+}
+
+.activity-item:hover {
+    transform: translateX(5px);
+}
+
+.activity-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #f0f0f0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--secondary-color);
+    font-size: 16px;
+    flex-shrink: 0;
+}
+
+.activity-details {
+    flex: 1;
+}
+
+.activity-details p {
+    font-size: 14px;
+    margin-bottom: 5px;
+    color: #333;
+    line-height: 1.4;
+}
+
+.activity-time {
+    font-size: 12px;
+    color: #999;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.activity-time i {
+    font-size: 10px;
+    color: var(--secondary-color);
+}
+
+/* Evidence Status Section */
+.evidence-status {
+    background: white;
+    border-radius: var(--border-radius);
+    padding: 20px;
+    box-shadow: var(--box-shadow);
+    margin-top: 20px;
+}
+
+.evidence-status h2 {
+    font-size: 18px;
+    margin-bottom: 20px;
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+.status-bars {
+    display: grid;
+    gap: 15px;
+}
+
+.status-bar-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.status-bar-label {
+    width: 120px;
+    font-size: 14px;
+    color: #666;
+    font-weight: 500;
+}
+
+.status-bar-progress {
+    flex: 1;
+    height: 10px;
+    background: #f0f0f0;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.status-bar-fill {
+    height: 100%;
+    border-radius: 5px;
+    transition: width 0.5s ease;
+    position: relative;
+}
+
+.status-bar-fill.in-custody { 
+    background: linear-gradient(90deg, var(--secondary-color), #5faee3);
+}
+.status-bar-fill.analyzing { 
+    background: linear-gradient(90deg, var(--warning-color), #f5b041);
+}
+.status-bar-fill.completed { 
+    background: linear-gradient(90deg, var(--success-color), #52be80);
+}
+.status-bar-fill.transferred { 
+    background: linear-gradient(90deg, #9b59b6, #af7ac5);
+}
+
+.status-bar-value {
+    width: 60px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
+/* Dark Theme Support */
+body.dark-theme .recent-cases,
+body.dark-theme .recent-activity,
+body.dark-theme .evidence-status {
+    background: #0f3460;
+}
+
+body.dark-theme .data-table th {
+    background: #1a1a2e;
+    color: #fff;
+}
+
+body.dark-theme .data-table td {
+    color: #ddd;
+    border-bottom-color: #333;
+}
+
+body.dark-theme .data-table tbody tr:hover {
+    background: #1a1a2e;
+}
+
+body.dark-theme .activity-item {
+    border-bottom-color: #333;
+}
+
+body.dark-theme .activity-details p {
+    color: #ddd;
+}
+
+body.dark-theme .status-bar-label {
+    color: #aaa;
+}
+
+body.dark-theme .status-bar-value {
+    color: #fff;
+}
+
+/* Responsive Design */
+@media (max-width: 992px) {
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .status-bar-item {
+        flex-wrap: wrap;
+    }
+    
+    .status-bar-label {
+        width: 100%;
+        margin-bottom: 5px;
+    }
+    
+    .status-bar-progress {
+        width: calc(100% - 70px);
+    }
+}

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forensic COC System - Login</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+
+</head>
+<body class="login-page">
+    <div class="auth-container">
+        <div class="auth-card">
+            <div class="auth-header">
+                <i class="fas fa-shield-halfling fa-3x"></i>
+                <h1>Forensic Chain of Custody System</h1>
+                <p>Secure Evidence Management Platform</p>
+            </div>
+            
+            <div class="auth-tabs">
+                <button class="tab-btn active" id="loginTab" data-tab="login">
+                    <i class="fas fa-sign-in-alt"></i> Login
+                </button>
+                <button class="tab-btn" id="signupTab" data-tab="signup">
+                    <i class="fas fa-user-plus"></i> Sign Up
+                </button>
+            </div>
+            
+            <!-- Login Form -->
+            <form id="loginForm" class="auth-form active">
+                <div class="form-group">
+                    <label for="loginEmail">
+                        <i class="fas fa-envelope"></i>
+                        Email <span class="required">*</span>
+                    </label>
+                    <input type="email" id="loginEmail" required placeholder="Enter your email" autocomplete="email">
+                </div>
+                
+                <div class="form-group">
+                    <label for="loginPassword">
+                        <i class="fas fa-lock"></i>
+                        Password <span class="required">*</span>
+                    </label>
+                    <input type="password" id="loginPassword" required placeholder="Enter your password" autocomplete="current-password">
+                </div>
+                
+                <button type="submit" class="btn-primary" id="loginBtn">
+                    <i class="fas fa-sign-in-alt"></i>
+                    Login
+                </button>
+            </form>
+            
+            <!-- Signup Form -->
+            <form id="signupForm" class="auth-form">
+                <div class="form-group">
+                    <label for="signupName">
+                        <i class="fas fa-user"></i>
+                        Full Name <span class="required">*</span>
+                    </label>
+                    <input type="text" id="signupName" required placeholder="Enter your full name" autocomplete="name">
+                </div>
+                
+                <div class="form-group">
+                    <label for="signupEmail">
+                        <i class="fas fa-envelope"></i>
+                        Email <span class="required">*</span>
+                    </label>
+                    <input type="email" id="signupEmail" required placeholder="Enter your email" autocomplete="email">
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="signupPassword">
+                            <i class="fas fa-lock"></i>
+                            Password <span class="required">*</span>
+                        </label>
+                        <input type="password" id="signupPassword" required placeholder="Create a password" autocomplete="new-password">
+                        <small>Minimum 8 characters</small>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="signupConfirmPassword">
+                            <i class="fas fa-lock"></i>
+                            Confirm <span class="required">*</span>
+                        </label>
+                        <input type="password" id="signupConfirmPassword" required placeholder="Confirm password" autocomplete="new-password">
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="badgeNumber">
+                            <i class="fas fa-id-badge"></i>
+                            Badge/Employee ID <span class="required">*</span>
+                        </label>
+                        <input type="text" id="badgeNumber" required placeholder="Enter your badge number">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="department">
+                            <i class="fas fa-building"></i>
+                            Department <span class="required">*</span>
+                        </label>
+                        <select id="department" required>
+                            <option value="">Select Department</option>
+                            <option value="Digital Forensics">Digital Forensics</option>
+                            <option value="Crime Scene Investigation">Crime Scene Investigation</option>
+                            <option value="Evidence Management">Evidence Management</option>
+                            <option value="Cyber Crime Unit">Cyber Crime Unit</option>
+                            <option value="Forensic Laboratory">Forensic Laboratory</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <button type="submit" class="btn-primary" id="signupBtn">
+                    <i class="fas fa-user-plus"></i>
+                    Create Account
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer" style="position: fixed; bottom: 0; left: 0; right: 0; background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);">
+        <span> A Digital Evidence Report Generation System | Group:A3 | <b>Designed and Developed by:</b> CS23006-Madhura Karangale & CS23007-Samiksha Thakre </span>
+    </footer>
+
+    <!-- Toast Notification and scripts -->
+    <div id="toast" class="toast"></div>
+    <script src="js/config.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script type="module" src="js/app.js"></script>
+
+</body>
+</html>

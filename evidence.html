@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evidence Management - Forensic COC System</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/evidence.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <i class="fas fa-shield-halfling"></i>
+                <h2>Forensic COC</h2>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-item">
+                    <i class="fas fa-home"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="cases.html" class="nav-item">
+                    <i class="fas fa-folder"></i>
+                    <span>Cases</span>
+                </a>
+                <a href="evidence.html" class="nav-item active">
+                    <i class="fas fa-microchip"></i>
+                    <span>Evidence</span>
+                </a>
+                <a href="coc-form.html" class="nav-item">
+                    <i class="fas fa-file-signature"></i>
+                    <span>New COC</span>
+                </a>
+                <a href="profile.html" class="nav-item">
+                    <i class="fas fa-user"></i>
+                    <span>Profile</span>
+                </a>
+            </nav>
+            
+            <div class="sidebar-footer">
+                <div class="user-info">
+                    <div class="user-avatar" id="userAvatar"></div>
+                    <div class="user-details">
+                        <span id="userName">Loading...</span>
+                        <small id="userRole">Digital Forensics</small>
+                    </div>
+                </div>
+                <button id="logoutBtn" class="btn-logout">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Logout</span>
+                </button>
+            </div>
+        </aside>
+        
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="content-header">
+                <div>
+                    <h1>Evidence Management</h1>
+                    <p class="breadcrumb">
+                        <a href="dashboard.html">Dashboard</a> / 
+                        <span>Evidence</span>
+                    </p>
+                </div>
+                <div class="header-actions">
+                    <button class="btn-primary" id="newEvidenceBtn">
+                        <i class="fas fa-plus"></i>
+                        Add New Evidence
+                    </button>
+                    <button class="btn-secondary" id="exportBtn">
+                        <i class="fas fa-download"></i>
+                        Export
+                    </button>
+                </div>
+            </header>
+            
+            <!-- Filters Section -->
+            <div class="filters-card">
+                <div class="filters-grid">
+                    <div class="search-box large">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="searchEvidence" placeholder="Search by ID, description, or case number...">
+                    </div>
+                    
+                    <div class="filter-group">
+                        <select id="caseFilter" class="filter-select">
+                            <option value="all">All Cases</option>
+                        </select>
+                        
+                        <select id="statusFilter" class="filter-select">
+                            <option value="all">All Status</option>
+                            <option value="in-custody">In Custody</option>
+                            <option value="analyzing">Under Analysis</option>
+                            <option value="completed">Analysis Complete</option>
+                            <option value="transferred">Transferred</option>
+                        </select>
+                        
+                        <select id="typeFilter" class="filter-select">
+                            <option value="all">All Types</option>
+                            <option value="digital">Digital Media</option>
+                            <option value="mobile">Mobile Device</option>
+                            <option value="computer">Computer/Laptop</option>
+                            <option value="document">Document</option>
+                        </select>
+                        
+                        <select id="sortBy" class="filter-select">
+                            <option value="newest">Newest First</option>
+                            <option value="oldest">Oldest First</option>
+                            <option value="id">Evidence ID</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <!-- Active Filters -->
+                <div class="active-filters" id="activeFilters"></div>
+            </div>
+            
+            <!-- Evidence Stats -->
+            <div class="evidence-stats-grid">
+                <div class="stat-card small">
+                    <div class="stat-icon blue">
+                        <i class="fas fa-box"></i>
+                    </div>
+                    <div class="stat-details">
+                        <h3>Total Evidence</h3>
+                        <p id="totalEvidence">0</p>
+                    </div>
+                </div>
+                
+                <div class="stat-card small">
+                    <div class="stat-icon green">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div class="stat-details">
+                        <h3>In Custody</h3>
+                        <p id="inCustodyCount">0</p>
+                    </div>
+                </div>
+                
+                <div class="stat-card small">
+                    <div class="stat-icon orange">
+                        <i class="fas fa-flask"></i>
+                    </div>
+                    <div class="stat-details">
+                        <h3>Under Analysis</h3>
+                        <p id="analysisCount">0</p>
+                    </div>
+                </div>
+                
+                <div class="stat-card small">
+                    <div class="stat-icon purple">
+                        <i class="fas fa-exchange-alt"></i>
+                    </div>
+                    <div class="stat-details">
+                        <h3>Transferred</h3>
+                        <p id="transferredCount">0</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- View Toggle -->
+            <div class="view-toggle">
+                <button class="toggle-btn active" data-view="grid">
+                    <i class="fas fa-th-large"></i> Grid
+                </button>
+                <button class="toggle-btn" data-view="list">
+                    <i class="fas fa-list"></i> List
+                </button>
+            </div>
+            
+            <!-- Evidence Container -->
+            <div id="evidenceContainer" class="evidence-grid">
+                <!-- Populated by JavaScript -->
+            </div>
+            
+            <!-- Pagination -->
+            <div class="pagination" id="pagination">
+                <button class="page-btn" disabled id="prevPage">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <div class="page-numbers" id="pageNumbers"></div>
+                <button class="page-btn" id="nextPage">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+        </main>
+    </div>
+
+    <!-- New Evidence Modal -->
+    <div id="evidenceModal" class="modal">
+        <div class="modal-content large">
+            <div class="modal-header">
+                <h2><i class="fas fa-microchip"></i> Add New Evidence</h2>
+                <button class="close-modal">&times;</button>
+            </div>
+            
+            <form id="evidenceForm" class="modal-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="evidenceId">Evidence ID <span class="required">*</span></label>
+                        <input type="text" id="evidenceId"  placeholder="Evidence ID" class="readonly-field">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="caseNumber">Case Number <span class="required">*</span></label>
+                        <select id="caseNumber" required>
+                            <option value="">Select Case</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="evidenceDescription">Evidence Description <span class="required">*</span></label>
+                    <textarea id="evidenceDescription" rows="3" required placeholder="Detailed description of the evidence..."></textarea>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="evidenceType">Evidence Type <span class="required">*</span></label>
+                        <select id="evidenceType" required>
+                            <option value="">Select Type</option>
+                            <option value="digital">Digital Media</option>
+                            <option value="mobile">Mobile Device</option>
+                            <option value="computer">Computer/Laptop</option>
+                            <option value="document">Document</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="evidenceCategory">Category</label>
+                        <select id="evidenceCategory">
+                            <option value="">Select Category</option>
+                            <option value="hardware">Hardware</option>
+                            <option value="storage">Storage Media</option>
+                            <option value="mobile">Mobile Device</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="serialNumber">Serial Number</label>
+                        <input type="text" id="serialNumber" placeholder="Device serial number">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="model">Model/Manufacturer</label>
+                        <input type="text" id="model" placeholder="e.g., Dell, Samsung">
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="location">Current Location</label>
+                        <input type="text" id="location" placeholder="Evidence room, lab, etc.">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="custodian">Current Custodian</label>
+                        <input type="text" id="custodian" placeholder="Person in possession">
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="acquisitionDate">Acquisition Date</label>
+                        <input type="datetime-local" id="acquisitionDate">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="evidenceStatus">Status</label>
+                        <select id="evidenceStatus">
+                            <option value="in-custody">In Custody</option>
+                            <option value="analyzing">Under Analysis</option>
+                            <option value="completed">Analysis Complete</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="evidenceNotes">Additional Notes</label>
+                    <textarea id="evidenceNotes" rows="2" placeholder="Any additional information..."></textarea>
+                </div>
+                
+                <div class="coc-quick-add">
+                    <h3><i class="fas fa-link"></i> Initial Chain of Custody Entry</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="cocFrom">From</label>
+                            <input type="text" id="cocFrom" placeholder="Previous location/person">
+                        </div>
+                        <div class="form-group">
+                            <label for="cocTo">To</label>
+                            <input type="text" id="cocTo" placeholder="Current location/person">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="cocPurpose">Purpose</label>
+                        <input type="text" id="cocPurpose" placeholder="Reason for transfer">
+                    </div>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="button" class="btn-secondary" onclick="closeModal()">Cancel</button>
+                    <button type="submit" class="btn-primary">
+                        <i class="fas fa-save"></i> Save Evidence
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- View Evidence Details Modal -->
+    <div id="viewEvidenceModal" class="modal">
+        <div class="modal-content large">
+            <div class="modal-header">
+                <h2><i class="fas fa-info-circle"></i> Evidence Details</h2>
+                <button class="close-modal">&times;</button>
+            </div>
+            
+            <div class="evidence-details" id="evidenceDetails">
+                <!-- Populated by JavaScript -->
+            </div>
+            
+            <div class="coc-timeline">
+                <h3><i class="fas fa-history"></i> Chain of Custody</h3>
+                <div class="timeline" id="cocTimeline">
+                    <!-- Populated by JavaScript -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+  <footer class="footer">
+        <span> A Digital Evidence Report Generation System | Group:A3 | <b>Designed and Developed by:</b> CS23006-Madhura Karangale & CS23007-Samiksha Thakre </span>
+    </footer>
+
+    <!-- Toast Notification and scripts -->
+    <div id="toast" class="toast"></div>
+    <script src="js/config.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script type="module" src="js/evidence.js"></script>
+ 
+</body>
+</html>

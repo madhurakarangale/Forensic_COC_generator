@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Case Management - Forensic COC System</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+ 
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/cases.css">
+    <link rel="stylesheet" href="css/responsive.css">
+
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <i class="fas fa-shield-halfling"></i>
+                <h2>Forensic COC</h2>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-item">
+                    <i class="fas fa-home"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="cases.html" class="nav-item active">
+                    <i class="fas fa-folder"></i>
+                    <span>Cases</span>
+                </a>
+                <a href="evidence.html" class="nav-item">
+                    <i class="fas fa-microchip"></i>
+                    <span>Evidence</span>
+                </a>
+                <a href="coc-form.html" class="nav-item">
+                    <i class="fas fa-file-signature"></i>
+                    <span>New COC</span>
+                </a>
+                <a href="profile.html" class="nav-item">
+                    <i class="fas fa-user"></i>
+                    <span>Profile</span>
+                </a>
+            </nav>
+            
+            <div class="sidebar-footer">
+                <div class="user-info">
+                    <div class="user-avatar" id="userAvatar">...</div>
+                    <div class="user-details">
+                        <span id="userName">Loading...</span>
+                        <small id="userRole">Digital Forensics</small>
+                    </div>
+                </div>
+                <button id="logoutBtn" class="btn-logout">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Logout</span>
+                </button>
+            </div>
+        </aside>
+        
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="content-header">
+                <div>
+                    <h1>Case Management</h1>
+                    <p class="breadcrumb">
+                        <a href="dashboard.html">Dashboard</a> / 
+                        <span>Cases</span>
+                    </p>
+                </div>
+                <div class="header-actions">
+                    <button class="btn-primary" id="newCaseBtn">
+                        <i class="fas fa-plus"></i>
+                        New Case
+                    </button>
+                </div>
+            </header>
+            
+            <!-- Filters Section -->
+            <div class="filters-section">
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="searchCases" placeholder="Search cases by number or title...">
+                </div>
+                
+                <div class="filter-group">
+                    <select id="statusFilter" class="filter-select">
+                        <option value="all">All Status</option>
+                        <option value="active">Active</option>
+                        <option value="pending">Pending</option>
+                        <option value="closed">Closed</option>
+                    </select>
+                    
+                    <select id="sortBy" class="filter-select">
+                        <option value="newest">Newest First</option>
+                        <option value="oldest">Oldest First</option>
+                        <option value="title">Title A-Z</option>
+                    </select>
+                </div>
+            </div>
+            
+            <!-- Cases Stats -->
+            <div class="cases-stats">
+                <div class="stat-card small">
+                    <div class="stat-icon blue">
+                        <i class="fas fa-folder-open"></i>
+                    </div>
+                    <div class="stat-details">
+                        <h3>Total Cases</h3>
+                        <p id="totalCases">0</p>
+                    </div>
+                </div>
+                
+                <div class="stat-card small">
+                    <div class="stat-icon green">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div class="stat-details">
+                        <h3>Active</h3>
+                        <p id="activeCases">0</p>
+                    </div>
+                </div>
+                
+                <div class="stat-card small">
+                    <div class="stat-icon orange">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="stat-details">
+                        <h3>Pending</h3>
+                        <p id="pendingCases">0</p>
+                    </div>
+                </div>
+                
+                <div class="stat-card small">
+                    <div class="stat-icon purple">
+                        <i class="fas fa-microchip"></i>
+                    </div>
+                    <div class="stat-details">
+                        <h3>Evidence Items</h3>
+                        <p id="totalEvidenceItems">0</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Cases Table -->
+            <div class="table-responsive">
+                <table class="data-table" id="casesTable">
+                    <thead>
+                        <tr>
+                            <th>Case Number</th>
+                            <th>Title</th>
+                            <th>Type</th>
+                            <th>Status</th>
+                            <th>Evidence Count</th>
+                            <th>Created By</th>
+                            <th>Created Date</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="casesBody">
+                        <tr>
+                            <td colspan="8" class="text-center loading-state">
+                                <i class="fas fa-spinner fa-spin fa-2x"></i>
+                                <p>Loading cases...</p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- Pagination -->
+            <div class="pagination" id="pagination">
+                <button class="page-btn" disabled id="prevPage">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <div class="page-numbers" id="pageNumbers"></div>
+                <button class="page-btn" id="nextPage">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+        </main>
+    </div>
+    
+    <!-- New Case Modal -->
+    <div id="caseModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fas fa-folder-plus"></i> Create New Case</h2>
+                <button class="close-modal">&times;</button>
+            </div>
+            <form id="caseForm" class="modal-form">
+                <div class="form-group">
+                    <label for="caseNumber">Case Number <span class="required">*</span></label>
+                    <input type="text" id="caseNumber"  placeholder="case id" class="readonly-field">
+                </div>
+                
+                <div class="form-group">
+                    <label for="caseTitle">Case Title <span class="required">*</span></label>
+                    <input type="text" id="caseTitle" required placeholder="Enter case title">
+                </div>
+                
+                <div class="form-group">
+                    <label for="caseDescription">Case Description</label>
+                    <textarea id="caseDescription" rows="3" placeholder="Enter case description..."></textarea>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="caseType">Case Type <span class="required">*</span></label>
+                        <select id="caseType" required>
+                            <option value="">Select Type</option>
+                            <option value="digital_forensics">Digital Forensics</option>
+                            <option value="cyber_crime">Cyber Crime</option>
+                            <option value="mobile_forensics">Mobile Forensics</option>
+                            <option value="network_forensics">Network Forensics</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="casePriority">Priority</label>
+                        <select id="casePriority">
+                            <option value="high">High</option>
+                            <option value="medium" selected>Medium</option>
+                            <option value="low">Low</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="caseStatus">Status</label>
+                        <select id="caseStatus">
+                            <option value="active">Active</option>
+                            <option value="pending">Pending</option>
+                            <option value="closed">Closed</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="caseAgency">Investigating Agency</label>
+                        <input type="text" id="caseAgency" value="Digital Forensic Laboratory">
+                    </div>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="button" class="btn-secondary" onclick="closeModal()">Cancel</button>
+                    <button type="submit" class="btn-primary" id="saveCaseBtn">
+                        <i class="fas fa-save"></i> Create Case
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- View Case Modal -->
+    <div id="viewCaseModal" class="modal">
+        <div class="modal-content large">
+            <div class="modal-header">
+                <h2><i class="fas fa-info-circle"></i> Case Details</h2>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="case-details" id="caseDetails">
+                <!-- Populated by JavaScript -->
+            </div>
+            <div class="form-actions" style="padding: 20px; border-top: 1px solid #eee;">
+                <button type="button" class="btn-secondary" onclick="closeModal()">Close</button>
+                <button type="button" class="btn-primary" onclick="window.print()">
+                    <i class="fas fa-print"></i> Print
+                </button>
+            </div>
+        </div>
+    </div>
+   <footer class="footer">
+        <span> A Digital Evidence Report Generation System | Group:A3 | <b>Designed and Developed by:</b> CS23006-Madhura Karangale & CS23007-Samiksha Thakre </span>
+    </footer>
+    <!-- Toast Notification -->
+    <div id="toast" class="toast"></div>
+    <script src="js/config.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script type="module" src="js/cases.js"></script>
+    
+</body>
+</html>

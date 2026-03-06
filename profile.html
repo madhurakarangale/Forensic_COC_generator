@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - Forensic COC System</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/profile.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <i class="fas fa-shield-halfling"></i>
+                <h2>Forensic COC</h2>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-item">
+                    <i class="fas fa-home"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="cases.html" class="nav-item">
+                    <i class="fas fa-folder"></i>
+                    <span>Cases</span>
+                </a>
+                <a href="evidence.html" class="nav-item">
+                    <i class="fas fa-microchip"></i>
+                    <span>Evidence</span>
+                </a>
+                <a href="coc-form.html" class="nav-item">
+                    <i class="fas fa-file-signature"></i>
+                    <span>New COC</span>
+                </a>
+                <a href="profile.html" class="nav-item active">
+                    <i class="fas fa-user"></i>
+                    <span>Profile</span>
+                </a>
+            </nav>
+            
+            <div class="sidebar-footer">
+                <div class="user-info">
+                    <div class="user-avatar" id="userAvatar"></div>
+                    <div class="user-details">
+                        <span id="userName">Loading...</span>
+                        <small id="userRole">Digital Forensics</small>
+                    </div>
+                </div>
+                <button id="logoutBtn" class="btn-logout">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Logout</span>
+                </button>
+            </div>
+        </aside>
+        
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="content-header">
+                <div>
+                    <h1>My Profile</h1>
+                    <p class="breadcrumb">
+                        <a href="dashboard.html">Dashboard</a> / 
+                        <span>Profile</span>
+                    </p>
+                </div>
+            </header>
+            
+            <!-- Profile Container -->
+            <div class="profile-container">
+                <!-- Profile Sidebar -->
+                <div class="profile-sidebar">
+                    <div class="profile-card">
+                        <div class="profile-avatar large" id="profileAvatar">
+                            <span id="avatarInitials">JD</span>
+                        </div>
+                        <h2 id="profileFullName">John Doe</h2>
+                        <p class="profile-title" id="profileDepartment">Digital Forensics</p>
+                        <p class="profile-badge" id="profileBadge">Badge: FD-2024-001</p>
+                        
+                        <div class="profile-stats">
+                            <div class="stat-item">
+                                <span class="stat-value" id="casesHandled">0</span>
+                                <span class="stat-label">Cases</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-value" id="evidenceHandled">0</span>
+                                <span class="stat-label">Evidence</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-value" id="cocHandled">0</span>
+                                <span class="stat-label">COC</span>
+                            </div>
+                        </div>
+                        
+                        <div class="profile-status">
+                            <span class="status-badge active">
+                                <i class="fas fa-circle"></i> Active
+                            </span>
+                            <span class="member-since" id="memberSince">
+                                Member since Jan 2024
+                            </span>
+                        </div>
+                    </div>
+                    
+                    <div class="quick-actions-card">
+                        <h3>Quick Actions</h3>
+                        <button class="action-btn" onclick="window.location.href='coc-form.html'">
+                            <i class="fas fa-file-signature"></i>
+                            New COC Entry
+                        </button>
+                        <button class="action-btn" onclick="window.location.href='cases.html'">
+                            <i class="fas fa-folder-plus"></i>
+                            Create Case
+                        </button>
+                        <button class="action-btn" onclick="window.location.href='evidence.html'">
+                            <i class="fas fa-microchip"></i>
+                            Add Evidence
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Profile Main -->
+                <div class="profile-main">
+                    <div class="profile-tabs">
+                        <button class="tab-btn active" data-tab="personal">
+                            <i class="fas fa-user"></i> Personal Info
+                        </button>
+                        <button class="tab-btn" data-tab="security">
+                            <i class="fas fa-shield-alt"></i> Security
+                        </button>
+                        <button class="tab-btn" data-tab="activity">
+                            <i class="fas fa-history"></i> Activity
+                        </button>
+                        <button class="tab-btn" data-tab="preferences">
+                            <i class="fas fa-cog"></i> Preferences
+                        </button>
+                    </div>
+                    
+                    <!-- Personal Info Tab -->
+                    <div class="tab-content active" id="personal-tab">
+                        <div class="profile-section">
+                            <h3>Personal Information</h3>
+                            <form id="personalInfoForm" class="profile-form">
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label>Full Name</label>
+                                        <input type="text" id="editFullName">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Email Address</label>
+                                        <input type="email" id="editEmail">
+                                    </div>
+                                </div>
+                                
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label>Badge/Employee ID</label>
+                                        <input type="text" id="editBadge" readonly>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Department</label>
+                                        <select id="editDepartment">
+                                            <option value="Digital Forensics">Digital Forensics</option>
+                                            <option value="Crime Scene">Crime Scene</option>
+                                            <option value="Cyber Crime">Cyber Crime</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label>Phone Number</label>
+                                        <input type="tel" id="editPhone">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Office Location</label>
+                                        <input type="text" id="editOffice">
+                                    </div>
+                                </div>
+                                
+                                <button type="submit" class="btn-primary">
+                                    <i class="fas fa-save"></i> Save Changes
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                    
+                    <!-- Security Tab -->
+                    <div class="tab-content" id="security-tab">
+                        <div class="profile-section">
+                            <!-- security setttings -->
+                        </div>
+                    </div>
+                    
+                    <!-- Activity Tab -->
+                    <div class="tab-content" id="activity-tab">
+                        <div class="profile-section">
+                            <h3>Recent Activity</h3>
+                            <div class="activity-timeline" id="userActivityTimeline">
+                                <!-- Populated by JavaScript -->
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Preferences Tab -->
+                    <div class="tab-content" id="preferences-tab">
+                        <div class="profile-section">
+                            <!-- prefrences list -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <span> A Digital Evidence Report Generation System | Group:A3 | <b>Designed and Developed by:</b> CS23006-Madhura Karangale & CS23007-Samiksha Thakre </span>
+    </footer>
+    
+    <!-- Toast Notification -->
+    <div id="toast" class="toast"></div>
+    <script src="js/config.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script type="module" src="js/profile.js"></script>
+</body>
+</html>
